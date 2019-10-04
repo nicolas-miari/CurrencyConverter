@@ -117,15 +117,8 @@
 			children = (
 				1F0C703E23470C0A0090519B /* AppDelegate.swift */,
 				1F0C704023470C0A0090519B /* SceneDelegate.swift */,
-				1F0C707423470FC50090519B /* ConverterViewController.swift */,
-				1F4ABBB623472D1C00C24C7E /* ConverterViewModel.swift */,
-				1F4ABBB12347122B00C24C7E /* NumericInputLabel.swift */,
-				1F4ABBBA23472FF400C24C7E /* InputButton.swift */,
-				1F4ABBB42347141000C24C7E /* UIToolbar+Extensions.swift */,
-				1F4ABBBC2347357400C24C7E /* UIResponder+Extensions.swift */,
-				1F0C706E23470C6A0090519B /* Networking.swift */,
-				1F0C707023470D5B0090519B /* WebService.swift */,
-				1F0C704423470C0A0090519B /* Main.storyboard */,
+				1F4ABBBE2347448E00C24C7E /* Converter */,
+				1F4ABBC2234744BB00C24C7E /* Support */,
 				1F0C704723470C0B0090519B /* Assets.xcassets */,
 				1F0C704923470C0B0090519B /* LaunchScreen.storyboard */,
 				1F0C704C23470C0B0090519B /* Info.plist */,
@@ -150,6 +143,53 @@
 				1F0C706223470C0C0090519B /* Info.plist */,
 			);
 			path = CurrencyConverterUITests;
+			sourceTree = "<group>";
+		};
+		1F4ABBBE2347448E00C24C7E /* Converter */ = {
+			isa = PBXGroup;
+			children = (
+				1F0C707423470FC50090519B /* ConverterViewController.swift */,
+				1F4ABBB623472D1C00C24C7E /* ConverterViewModel.swift */,
+				1F0C704423470C0A0090519B /* Main.storyboard */,
+			);
+			path = Converter;
+			sourceTree = "<group>";
+		};
+		1F4ABBBF2347449E00C24C7E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1F4ABBB12347122B00C24C7E /* NumericInputLabel.swift */,
+				1F4ABBBA23472FF400C24C7E /* InputButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1F4ABBC0234744AB00C24C7E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1F4ABBB42347141000C24C7E /* UIToolbar+Extensions.swift */,
+				1F4ABBBC2347357400C24C7E /* UIResponder+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1F4ABBC1234744B300C24C7E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1F0C706E23470C6A0090519B /* Networking.swift */,
+				1F0C707023470D5B0090519B /* WebService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1F4ABBC2234744BB00C24C7E /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				1F4ABBBF2347449E00C24C7E /* Views */,
+				1F4ABBC0234744AB00C24C7E /* Extensions */,
+				1F4ABBC1234744B300C24C7E /* Services */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -25,12 +25,26 @@ class ConverterViewController: UIViewController {
     private var sourceCurrency: Currency? {
         didSet {
             sourceCurrencyButton?.setTitle(sourceCurrency?.code, for: .normal)
+
+            if let currency = sourceCurrency, let row = viewModel.row(for: currency) {
+                (sourceCurrencyButton.inputView as? UIPickerView)?.selectRow(row, inComponent: 0, animated: false)
+                temptativeSrcCurrency = currency
+            } else {
+
+            }
         }
     }
 
     private var destinationCurrency: Currency? {
         didSet {
             destinationCurrencyButton.setTitle(destinationCurrency?.code, for: .normal)
+
+            if let currency = destinationCurrency, let row = viewModel.row(for: currency) {
+                (destinationCurrencyButton.inputView as? UIPickerView)?.selectRow(row, inComponent: 0, animated: false)
+                temptativeDstCurrency = currency
+            } else {
+
+            }
         }
     }
 
@@ -53,7 +67,6 @@ class ConverterViewController: UIViewController {
 
         let sourceIndex = viewModel.indexOfDefaultSourceCurrency
         self.sourceCurrency = viewModel.currency(at: sourceIndex)
-        (sourceCurrencyButton.inputView as? UIPickerView)?.selectRow(sourceIndex, inComponent: 0, animated: false)
 
         let destIndex = viewModel.indexOfDefaultDestinationCurrency
         self.destinationCurrency = viewModel.currency(at: destIndex)
@@ -157,6 +170,13 @@ class ConverterViewController: UIViewController {
     }
 
     @IBAction func swapCurrencies(_ sender: Any) {
+        let tempCurrency = destinationCurrency
+        self.destinationCurrency = sourceCurrency
+        self.sourceCurrency = tempCurrency
+
+        let tempAmount = destinationAmountLabel.text
+        destinationAmountLabel.text = sourceAmountLabel.text
+        sourceAmountLabel.text = tempAmount
     }
 }
 
