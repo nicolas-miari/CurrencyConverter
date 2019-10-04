@@ -45,4 +45,12 @@ class ConverterViewModel {
     func currency(at index: Int) -> Currency {
         return currencies[index]
     }
+
+    var indexOfDefaultSourceCurrency: Int {
+        return currencies.firstIndex { $0.code == "USD" } ?? 0
+    }
+
+    var indexOfDefaultDestinationCurrency: Int {
+        return currencies.firstIndex { $0.code == "JPY" } ?? 1
+    }
 }

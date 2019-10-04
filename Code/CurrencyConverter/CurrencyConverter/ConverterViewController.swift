@@ -43,6 +43,7 @@ class ConverterViewController: UIViewController {
         super.viewDidLoad()
 
         sourceAmountLabel.customInputAccessoryView = keyPadAccessoryView()
+        sourceAmountLabel.delegate = self
 
         sourceCurrencyButton.inputView = currencInputView()
         sourceCurrencyButton.inputAccessoryView = currencyAccessoryView()
@@ -50,11 +51,13 @@ class ConverterViewController: UIViewController {
         destinationCurrencyButton.inputView = currencInputView()
         destinationCurrencyButton.inputAccessoryView = currencyAccessoryView()
 
-        self.sourceCurrency = viewModel.currency(at: 0)
-        (sourceCurrencyButton.inputView as? UIPickerView)?.selectRow(0, inComponent: 0, animated: false)
+        let sourceIndex = viewModel.indexOfDefaultSourceCurrency
+        self.sourceCurrency = viewModel.currency(at: sourceIndex)
+        (sourceCurrencyButton.inputView as? UIPickerView)?.selectRow(sourceIndex, inComponent: 0, animated: false)
 
-        self.destinationCurrency = viewModel.currency(at: 1)
-        (destinationCurrencyButton.inputView as? UIPickerView)?.selectRow(1, inComponent: 0, animated: false)
+        let destIndex = viewModel.indexOfDefaultDestinationCurrency
+        self.destinationCurrency = viewModel.currency(at: destIndex)
+        (destinationCurrencyButton.inputView as? UIPickerView)?.selectRow(destIndex, inComponent: 0, animated: false)
     }
 
     private func keyPadAccessoryView() -> UIView {
@@ -104,6 +107,20 @@ class ConverterViewController: UIViewController {
         return view
     }
 
+    private func executeConversion() {
+        sourceAmountLabel.resignFirstResponder()
+
+        let amount = sourceAmountLabel.text ?? "????"
+        let sourceName = sourceCurrency?.name ?? "????"
+        let destName = destinationCurrency?.name ?? "????"
+        print("Converting \(amount) \(sourceName) to \(destName)")
+        /*
+        ConversionService.shared.convert(amount: 10, from: "USD", to: "JPY") { (convertedAmount) in
+            print("Converted: \(convertedAmount)")
+        }
+         */
+    }
+
     // MARK: - Control Actions
 
     @objc func cancel(_ sender: Any) {
@@ -125,17 +142,12 @@ class ConverterViewController: UIViewController {
             break
         }
         firstResponder.resignFirstResponder()
+
+        executeConversion()
     }
 
     @objc func convert(_ sender: Any) {
-        sourceAmountLabel.resignFirstResponder()
-
-        //print("Converting \(sourceAmountLabel.text) \(sourceCurrency!.name) to \(destinationCurrency!.name)")
-        /*
-        ConversionService.shared.convert(amount: 10, from: "USD", to: "JPY") { (convertedAmount) in
-            print("Converted: \(convertedAmount)")
-        }
-         */
+        executeConversion()
     }
 
     @IBAction func selectSourceCurrency(_ sender: Any) {
@@ -176,5 +188,15 @@ extension ConverterViewController: UIPickerViewDataSource {
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return viewModel.numberOfCurrencies
+    }
+}
+
+extension ConverterViewController: NumericInputLabelDelegate {
+    func numericInputLabel(_ label: NumericInputLabel, shouldChangeToText proposedText: String) -> Bool {
+        let dotCount = proposedText.filter{ $0 == "." }.count
+        if dotCount > 1 {
+            return false
+        }
+        return true
     }
 }

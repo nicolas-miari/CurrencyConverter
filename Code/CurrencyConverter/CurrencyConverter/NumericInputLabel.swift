@@ -74,8 +74,17 @@ class NumericInputLabel: UILabel, UITextInputTraits, UIKeyInput {
     public func insertText(_ newText: String) {
         let current = text ?? ""
 
-        let proposedText = current == "0" ? newText : current + newText
-        // (removes the leading zero, if there is one)
+        let proposedText: String = {
+            switch (current, newText) {
+            case ("0", "."):
+                return "0."
+            case ("0", _):
+                return newText
+            default:
+                return current + newText
+            }
+        }()
+        // (removes the leading zero, if there is one. Appends a leading zero if leading is a dot)
 
         guard validateText(proposedText) else {
             return

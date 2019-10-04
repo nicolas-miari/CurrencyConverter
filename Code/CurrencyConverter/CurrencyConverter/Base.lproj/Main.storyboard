@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OKE-Dh-0b7" customClass="InputButton" customModule="CurrencyConverter" customModuleProvider="target">
-                                <rect key="frame" x="302" y="322" width="92" height="33"/>
+                                <rect key="frame" x="302" y="321.5" width="92" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="92" id="kb3-oH-ZAb"/>
                                 </constraints>
@@ -37,21 +37,21 @@
                                     <action selector="selectDestinationCurrency:" destination="5ca-tl-Lqf" eventType="touchUpInside" id="a4d-Tf-ZO3"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TAJ-5T-Tab">
-                                <rect key="frame" x="20" y="459.5" width="274" height="31.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TAJ-5T-Tab">
+                                <rect key="frame" x="20" y="459" width="274" height="32"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="26"/>
                                 <color key="textColor" systemColor="systemGreenColor" red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lly-y8-hr2">
-                                <rect key="frame" x="186" y="393.5" width="42" height="30"/>
+                                <rect key="frame" x="186" y="393" width="42" height="30"/>
                                 <state key="normal" title="SWAP"/>
                                 <connections>
                                     <action selector="swapCurrencies:" destination="5ca-tl-Lqf" eventType="touchUpInside" id="JGu-fC-nzR"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Gs-Qs-gNd" customClass="NumericInputLabel" customModule="CurrencyConverter" customModuleProvider="target">
-                                <rect key="frame" x="20" y="319.5" width="274" height="31.5"/>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Gs-Qs-gNd" customClass="NumericInputLabel" customModule="CurrencyConverter" customModuleProvider="target">
+                                <rect key="frame" x="20" y="318.5" width="274" height="32"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
