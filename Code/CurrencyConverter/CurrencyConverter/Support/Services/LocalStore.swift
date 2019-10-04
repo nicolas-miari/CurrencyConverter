@@ -29,8 +29,6 @@ class LocalStore {
         guard let dictionary = try? JSONDecoder().decode([String: Quote].self, from: data) else {
             return [:]
         }
-        print(dictionary.keys)
-        
         return dictionary
     }
 }

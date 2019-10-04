@@ -86,6 +86,7 @@ class ConversionService {
         // (skip 'currencies' and retrieve all each time, to save bandwidth.)
 
         NetworkClient.shared.get(url: url, params: params, completion: { (result) in
+            // TODO: Add support for API errors (scan for 'error' entry)
             guard let json = result as? [String: Any] else {
                 return print("Response is in the wrong format: \(result)")
             }
