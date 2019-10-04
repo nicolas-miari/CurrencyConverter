@@ -104,11 +104,6 @@ class ConverterViewController: UIViewController {
     private func executeConversion() {
         inputAmountLabel.resignFirstResponder()
 
-        //let amount = inputAmountLabel.text ?? "????"
-        //let inputName = viewModel.inputCurrency.name
-        //let convertedName = viewModel.convertedCurrency.name
-        //print("Converting \(amount) \(inputName) to \(convertedName)")
-
         guard let amount = Double(inputAmountLabel.text ?? "") else {
             fatalError("Invalid Input")
         }
@@ -125,11 +120,6 @@ class ConverterViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self?.present(alert, animated: true, completion: nil)
         })
-        /*
-        ConversionService.shared.convert(amount: 10, from: "USD", to: "JPY") { (convertedAmount) in
-            print("Converted: \(convertedAmount)")
-        }
-         */
     }
 
     // MARK: - Control Actions

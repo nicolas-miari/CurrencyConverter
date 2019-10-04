@@ -26,6 +26,7 @@
 		1F5F159A23475D8700F3C7CE /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F159923475D8700F3C7CE /* Date+Extensions.swift */; };
 		1F5F159C23475DA700F3C7CE /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F159B23475DA700F3C7CE /* TimeInterval+Extensions.swift */; };
 		1F5F159E23475DDD00F3C7CE /* LocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F159D23475DDD00F3C7CE /* LocalStore.swift */; };
+		1F5F15A02347640400F3C7CE /* SupportedCodes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F5F159F2347640400F3C7CE /* SupportedCodes.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		1F5F159923475D8700F3C7CE /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		1F5F159B23475DA700F3C7CE /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 		1F5F159D23475DDD00F3C7CE /* LocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStore.swift; sourceTree = "<group>"; };
+		1F5F159F2347640400F3C7CE /* SupportedCodes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SupportedCodes.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 				1F0C704923470C0B0090519B /* LaunchScreen.storyboard */,
 				1F0C704C23470C0B0090519B /* Info.plist */,
 				1F4ABBB823472D7400C24C7E /* CurrencyCodes.csv */,
+				1F5F159F2347640400F3C7CE /* SupportedCodes.txt */,
 			);
 			path = CurrencyConverter;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F5F15A02347640400F3C7CE /* SupportedCodes.txt in Resources */,
 				1F4ABBB923472D7400C24C7E /* CurrencyCodes.csv in Resources */,
 				1F0C704B23470C0B0090519B /* LaunchScreen.storyboard in Resources */,
 				1F0C704823470C0B0090519B /* Assets.xcassets in Resources */,

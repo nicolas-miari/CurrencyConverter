@@ -11,7 +11,14 @@ import Foundation
  Documentation: https://currencylayer.com/quickstart
  */
 
-let appKey = "dd1930fac78a7adbd6aa99edfaf35a07"
+/// TODO: Move to Info.plist
+//let appKey = "dd1930fac78a7adbd6aa99edfaf35a07"
+
+extension Bundle {
+    var currencyLayerAccessKey: String? {
+        return object(forInfoDictionaryKey: "Currency Layer Access Key") as? String
+    }
+}
 
 struct Quote: Codable {
     /**
@@ -26,6 +33,10 @@ struct Quote: Codable {
     let rate: Double
 
     /**
+     The date when the quote was last retrieved from the server, for the purpose of saving
+     bandwith (quotes older than 30 minutes are discarded and re-queried). Do not confuse
+     with the timestamp that is returned from the server: That indicates how old the quotes
+     themselves are, relative to when the market valuation of each currency was last updated.
      */
     let timeStamp: Date
 }
@@ -40,17 +51,19 @@ class ConversionService {
         self.cachedQuotes = LocalStore.shared.loadQuotes()
     }
 
+    let dataLongevityInMinutes = 120
+
     /**
      Fails if the necessary quote isn't cached.
      */
     private func convert(amount: Double, from srcCurrency: String, to dstCurrency: String) -> Double? {
         let key = "\(srcCurrency)" +  "\(dstCurrency)"
-        if let cached = cachedQuotes[key], cached.timeStamp.isWithin(TimeInterval(minutes: 30)) {
+        if let cached = cachedQuotes[key], cached.timeStamp.isWithin(TimeInterval(minutes: dataLongevityInMinutes)) {
             // Use cached value:
             return amount * cached.rate
         }
         let reverseKey = "\(dstCurrency)" +  "\(srcCurrency)"
-        if let cached = cachedQuotes[reverseKey], cached.timeStamp.isWithin(TimeInterval(minutes: 30)) {
+        if let cached = cachedQuotes[reverseKey], cached.timeStamp.isWithin(TimeInterval(minutes: dataLongevityInMinutes)) {
             // Use cached value (reversed):
             return amount / cached.rate
         }
@@ -66,7 +79,10 @@ class ConversionService {
         let urlString = "http://apilayer.net/api/live"
         let url = URL(string: urlString)!
 
-        let params: [String: Any] = ["access_key": appKey, "source": srcCurrency, "format": "1"]
+        guard let accessKey = Bundle.main.currencyLayerAccessKey else {
+            return failure(ServiceError.accessKeyMissing)
+        }
+        let params: [String: Any] = ["access_key": accessKey, "source": srcCurrency, "format": "1"]
         // (skip 'currencies' and retrieve all each time, to save bandwidth.)
 
         NetworkClient.shared.get(url: url, params: params, completion: { (result) in
@@ -76,9 +92,6 @@ class ConversionService {
             guard let quotesJSON = json["quotes"] as? [String: Any] else {
                 return print("Response is in the wrong format! (missing all quotes): \(json)")
             }
-            //guard let timeStamp = json["timestamp"] as? Int else {
-            //    return print("Response is in the wrong format! (missing timestamp)")
-            //}
             /*
              Ignore server timestamp: it only specifies how old the data ON THE SERVER is.
              For our purposes (save bandwidth), we only care how long the data has been sitting on
@@ -99,8 +112,6 @@ class ConversionService {
             }
             LocalStore.shared.storeQuotes(self.cachedQuotes)
 
-            print(self.cachedQuotes.keys)
-
             DispatchQueue.main.async {
                 // Now try again, this time using the latest cached quotes:
                 guard let cachedResult = self.convert(amount: amount, from: srcCurrency, to: dstCurrency) else {
@@ -109,8 +120,6 @@ class ConversionService {
                 }
                 completion(cachedResult)
             }
-
-
 
             /*
              Sample response:
@@ -134,14 +143,20 @@ class ConversionService {
             print(error.localizedDescription)
         })
     }
-
-    /*
-    private func key(forCurrencies first: String, and second: String) -> String {
-        let sorted = [first, second].sorted()
-        return sorted.joined(separator: "")
-    }*/
 }
 
 enum ServiceError: LocalizedError {
     case quoteUnavailable
+
+    case accessKeyMissing
+
+    var localizedDescription: String {
+        switch self {
+        case .quoteUnavailable:
+            return "A quote for the requested currency was not present on the server."
+
+        case .accessKeyMissing:
+            return "Access Key is missing from Info.plist file."
+        }
+    }
 }
