@@ -8,69 +8,45 @@
 
 import UIKit
 
+/**
+ Main app screen. Coordinates the graphical user interface (input and display controls) with the web
+ service and additional local business logic.
+ */
 class ConverterViewController: UIViewController {
 
     // MARK: - GUI
 
-    @IBOutlet weak var sourceAmountLabel: NumericInputLabel!
-    @IBOutlet weak var sourceCurrencyButton: InputButton!
+    @IBOutlet weak var inputAmountLabel: NumericInputLabel!
+    @IBOutlet weak var inputCurrencyButton: InputButton!
 
     @IBOutlet weak var swapCurrenciesButton: UIButton!
 
-    @IBOutlet weak var destinationCurrencyButton: InputButton!
-    @IBOutlet weak var destinationAmountLabel: UILabel!
+    @IBOutlet weak var convertedCurrencyButton: InputButton!
+    @IBOutlet weak var convertedAmountLabel: UILabel!
+
+    // MARK: -
 
     let viewModel = ConverterViewModel()
-
-    private var sourceCurrency: Currency? {
-        didSet {
-            sourceCurrencyButton?.setTitle(sourceCurrency?.code, for: .normal)
-
-            if let currency = sourceCurrency, let row = viewModel.row(for: currency) {
-                (sourceCurrencyButton.inputView as? UIPickerView)?.selectRow(row, inComponent: 0, animated: false)
-                temptativeSrcCurrency = currency
-            } else {
-
-            }
-        }
-    }
-
-    private var destinationCurrency: Currency? {
-        didSet {
-            destinationCurrencyButton.setTitle(destinationCurrency?.code, for: .normal)
-
-            if let currency = destinationCurrency, let row = viewModel.row(for: currency) {
-                (destinationCurrencyButton.inputView as? UIPickerView)?.selectRow(row, inComponent: 0, animated: false)
-                temptativeDstCurrency = currency
-            } else {
-
-            }
-        }
-    }
-
-    private var temptativeSrcCurrency: Currency?
-    private var temptativeDstCurrency: Currency?
 
     // MARK: - UIViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        sourceAmountLabel.customInputAccessoryView = keyPadAccessoryView()
-        sourceAmountLabel.delegate = self
+        inputAmountLabel.customInputAccessoryView = keyPadAccessoryView()
+        inputAmountLabel.delegate = self
 
-        sourceCurrencyButton.inputView = currencInputView()
-        sourceCurrencyButton.inputAccessoryView = currencyAccessoryView()
+        let inputCurrencyInputView = currencyInputView()
+        inputCurrencyInputView.selectRow(viewModel.inputCurrencyIndex, inComponent: 0, animated: false)
+        inputCurrencyButton.inputView = inputCurrencyInputView
+        inputCurrencyButton.inputAccessoryView = currencyAccessoryView()
 
-        destinationCurrencyButton.inputView = currencInputView()
-        destinationCurrencyButton.inputAccessoryView = currencyAccessoryView()
+        let convertedCurrencyInputView = currencyInputView()
+        convertedCurrencyInputView.selectRow(viewModel.convertedCurrencyIndex, inComponent: 0, animated: false)
+        convertedCurrencyButton.inputView = convertedCurrencyInputView
+        convertedCurrencyButton.inputAccessoryView = currencyAccessoryView()
 
-        let sourceIndex = viewModel.indexOfDefaultSourceCurrency
-        self.sourceCurrency = viewModel.currency(at: sourceIndex)
-
-        let destIndex = viewModel.indexOfDefaultDestinationCurrency
-        self.destinationCurrency = viewModel.currency(at: destIndex)
-        (destinationCurrencyButton.inputView as? UIPickerView)?.selectRow(destIndex, inComponent: 0, animated: false)
+        updateButtonTitles()
     }
 
     private func keyPadAccessoryView() -> UIView {
@@ -89,7 +65,7 @@ class ConverterViewController: UIViewController {
         return view
     }
 
-    private func currencInputView() -> UIView {
+    private func currencyInputView() -> UIPickerView {
         let picker = UIPickerView()
         picker.delegate = self
         picker.dataSource = self
@@ -120,13 +96,35 @@ class ConverterViewController: UIViewController {
         return view
     }
 
-    private func executeConversion() {
-        sourceAmountLabel.resignFirstResponder()
+    private func updateButtonTitles() {
+        inputCurrencyButton.setTitle(viewModel.inputCurrency.code, for: .normal)
+        convertedCurrencyButton.setTitle(viewModel.convertedCurrency.code, for: .normal)
+    }
 
-        let amount = sourceAmountLabel.text ?? "????"
-        let sourceName = sourceCurrency?.name ?? "????"
-        let destName = destinationCurrency?.name ?? "????"
-        print("Converting \(amount) \(sourceName) to \(destName)")
+    private func executeConversion() {
+        inputAmountLabel.resignFirstResponder()
+
+        //let amount = inputAmountLabel.text ?? "????"
+        //let inputName = viewModel.inputCurrency.name
+        //let convertedName = viewModel.convertedCurrency.name
+        //print("Converting \(amount) \(inputName) to \(convertedName)")
+
+        guard let amount = Double(inputAmountLabel.text ?? "") else {
+            fatalError("Invalid Input")
+        }
+        ConversionService.shared.convert(
+            amount: amount,
+            from: viewModel.inputCurrency.code,
+            to: viewModel.convertedCurrency.code,
+            completion: { [weak self](result) in
+
+                self?.convertedAmountLabel.text = String(format: "%.2f", result)
+
+        }, failure: { [weak self] (error) in
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self?.present(alert, animated: true, completion: nil)
+        })
         /*
         ConversionService.shared.convert(amount: 10, from: "USD", to: "JPY") { (convertedAmount) in
             print("Converted: \(convertedAmount)")
@@ -144,18 +142,28 @@ class ConverterViewController: UIViewController {
         guard let firstResponder = UIResponder.first else {
             return
         }
-        switch firstResponder {
-        case sourceCurrencyButton:
-            self.sourceCurrency = temptativeSrcCurrency
+        guard let picker = firstResponder.inputView as? UIPickerView else {
+            fatalError("Control Inconsistency")
+        }
+        let row = picker.selectedRow(inComponent: 0)
 
-        case destinationCurrencyButton:
-            self.destinationCurrency = temptativeDstCurrency
+        // Update view model based on picker and selected row:
+        switch firstResponder {
+        case inputCurrencyButton:
+            viewModel.inputCurrencyIndex = row
+
+        case convertedCurrencyButton:
+            viewModel.convertedCurrencyIndex = row
 
         default:
             break
         }
+        updateButtonTitles()
+
+        // Dismiss picker...
         firstResponder.resignFirstResponder()
 
+        // ...and recalculate conversion:
         executeConversion()
     }
 
@@ -170,30 +178,33 @@ class ConverterViewController: UIViewController {
     }
 
     @IBAction func swapCurrencies(_ sender: Any) {
-        let tempCurrency = destinationCurrency
-        self.destinationCurrency = sourceCurrency
-        self.sourceCurrency = tempCurrency
+        // [1] Swap contents of view model
+        let tempIndex = viewModel.inputCurrencyIndex
+        viewModel.inputCurrencyIndex = viewModel.convertedCurrencyIndex
+        viewModel.convertedCurrencyIndex = tempIndex
 
-        let tempAmount = destinationAmountLabel.text
-        destinationAmountLabel.text = sourceAmountLabel.text
-        sourceAmountLabel.text = tempAmount
+        // [2] Swap label text and button titles
+        let tempAmount = inputAmountLabel.text
+        inputAmountLabel.text = convertedAmountLabel.text
+        convertedAmountLabel.text = tempAmount
+
+        updateButtonTitles()
+
+        // [3] Update selected rows of the (hodden) picker views:
+        (inputCurrencyButton.inputView as? UIPickerView)?.selectRow(viewModel.inputCurrencyIndex, inComponent: 0, animated: false)
+        (convertedCurrencyButton.inputView as? UIPickerView)?.selectRow(viewModel.convertedCurrencyIndex, inComponent: 0, animated: false)
+    }
+}
+
+// MARK: - NumericInputLabelDelegate
+
+extension ConverterViewController: NumericInputLabelDelegate {
+    func numericInputLabel(_ label: NumericInputLabel, shouldChangeToText proposedText: String) -> Bool {
+        return viewModel.isValidInputText(proposedText)
     }
 }
 
 extension ConverterViewController: UIPickerViewDelegate {
-
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        switch pickerView {
-        case sourceCurrencyButton.inputView:
-            self.temptativeSrcCurrency = viewModel.currency(at: row)
-
-        case destinationCurrencyButton.inputView:
-            self.temptativeDstCurrency = viewModel.currency(at: row)
-
-        default:
-            break
-        }
-    }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let currency = viewModel.currency(at: row)
@@ -208,15 +219,5 @@ extension ConverterViewController: UIPickerViewDataSource {
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return viewModel.numberOfCurrencies
-    }
-}
-
-extension ConverterViewController: NumericInputLabelDelegate {
-    func numericInputLabel(_ label: NumericInputLabel, shouldChangeToText proposedText: String) -> Bool {
-        let dotCount = proposedText.filter{ $0 == "." }.count
-        if dotCount > 1 {
-            return false
-        }
-        return true
     }
 }

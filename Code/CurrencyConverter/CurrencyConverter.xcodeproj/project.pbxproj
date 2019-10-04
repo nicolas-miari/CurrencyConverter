@@ -15,7 +15,7 @@
 		1F0C705623470C0B0090519B /* CurrencyConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0C705523470C0B0090519B /* CurrencyConverterTests.swift */; };
 		1F0C706123470C0C0090519B /* CurrencyConverterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0C706023470C0C0090519B /* CurrencyConverterUITests.swift */; };
 		1F0C706F23470C6A0090519B /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0C706E23470C6A0090519B /* Networking.swift */; };
-		1F0C707123470D5B0090519B /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0C707023470D5B0090519B /* WebService.swift */; };
+		1F0C707123470D5B0090519B /* ConversionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0C707023470D5B0090519B /* ConversionService.swift */; };
 		1F0C707523470FC50090519B /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0C707423470FC50090519B /* ConverterViewController.swift */; };
 		1F4ABBB22347122B00C24C7E /* NumericInputLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4ABBB12347122B00C24C7E /* NumericInputLabel.swift */; };
 		1F4ABBB52347141000C24C7E /* UIToolbar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4ABBB42347141000C24C7E /* UIToolbar+Extensions.swift */; };
@@ -23,6 +23,9 @@
 		1F4ABBB923472D7400C24C7E /* CurrencyCodes.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1F4ABBB823472D7400C24C7E /* CurrencyCodes.csv */; };
 		1F4ABBBB23472FF400C24C7E /* InputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4ABBBA23472FF400C24C7E /* InputButton.swift */; };
 		1F4ABBBD2347357400C24C7E /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4ABBBC2347357400C24C7E /* UIResponder+Extensions.swift */; };
+		1F5F159A23475D8700F3C7CE /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F159923475D8700F3C7CE /* Date+Extensions.swift */; };
+		1F5F159C23475DA700F3C7CE /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F159B23475DA700F3C7CE /* TimeInterval+Extensions.swift */; };
+		1F5F159E23475DDD00F3C7CE /* LocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F159D23475DDD00F3C7CE /* LocalStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +60,7 @@
 		1F0C706023470C0C0090519B /* CurrencyConverterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyConverterUITests.swift; sourceTree = "<group>"; };
 		1F0C706223470C0C0090519B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F0C706E23470C6A0090519B /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
-		1F0C707023470D5B0090519B /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		1F0C707023470D5B0090519B /* ConversionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionService.swift; sourceTree = "<group>"; };
 		1F0C707423470FC50090519B /* ConverterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewController.swift; sourceTree = "<group>"; };
 		1F4ABBB12347122B00C24C7E /* NumericInputLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumericInputLabel.swift; sourceTree = "<group>"; };
 		1F4ABBB42347141000C24C7E /* UIToolbar+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIToolbar+Extensions.swift"; sourceTree = "<group>"; };
@@ -65,6 +68,9 @@
 		1F4ABBB823472D7400C24C7E /* CurrencyCodes.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CurrencyCodes.csv; sourceTree = "<group>"; };
 		1F4ABBBA23472FF400C24C7E /* InputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputButton.swift; sourceTree = "<group>"; };
 		1F4ABBBC2347357400C24C7E /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
+		1F5F159923475D8700F3C7CE /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		1F5F159B23475DA700F3C7CE /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
+		1F5F159D23475DDD00F3C7CE /* LocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +175,8 @@
 			children = (
 				1F4ABBB42347141000C24C7E /* UIToolbar+Extensions.swift */,
 				1F4ABBBC2347357400C24C7E /* UIResponder+Extensions.swift */,
+				1F5F159923475D8700F3C7CE /* Date+Extensions.swift */,
+				1F5F159B23475DA700F3C7CE /* TimeInterval+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -177,7 +185,8 @@
 			isa = PBXGroup;
 			children = (
 				1F0C706E23470C6A0090519B /* Networking.swift */,
-				1F0C707023470D5B0090519B /* WebService.swift */,
+				1F0C707023470D5B0090519B /* ConversionService.swift */,
+				1F5F159D23475DDD00F3C7CE /* LocalStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -327,10 +336,13 @@
 				1F0C703F23470C0A0090519B /* AppDelegate.swift in Sources */,
 				1F0C704123470C0A0090519B /* SceneDelegate.swift in Sources */,
 				1F4ABBB52347141000C24C7E /* UIToolbar+Extensions.swift in Sources */,
-				1F0C707123470D5B0090519B /* WebService.swift in Sources */,
+				1F5F159E23475DDD00F3C7CE /* LocalStore.swift in Sources */,
+				1F0C707123470D5B0090519B /* ConversionService.swift in Sources */,
 				1F0C706F23470C6A0090519B /* Networking.swift in Sources */,
 				1F0C707523470FC50090519B /* ConverterViewController.swift in Sources */,
 				1F4ABBBD2347357400C24C7E /* UIResponder+Extensions.swift in Sources */,
+				1F5F159C23475DA700F3C7CE /* TimeInterval+Extensions.swift in Sources */,
+				1F5F159A23475D8700F3C7CE /* Date+Extensions.swift in Sources */,
 				1F4ABBB22347122B00C24C7E /* NumericInputLabel.swift in Sources */,
 				1F4ABBBB23472FF400C24C7E /* InputButton.swift in Sources */,
 				1F4ABBB723472D1C00C24C7E /* ConverterViewModel.swift in Sources */,

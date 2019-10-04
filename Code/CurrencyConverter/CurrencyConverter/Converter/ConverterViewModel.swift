@@ -17,10 +17,23 @@ class ConverterViewModel {
 
     let currencies: [Currency]
 
+    var inputCurrencyIndex: Int
+
+    var convertedCurrencyIndex: Int
+
+    var inputCurrency: Currency {
+        return currencies[inputCurrencyIndex]
+    }
+
+    var convertedCurrency: Currency {
+        return currencies[convertedCurrencyIndex]
+    }
+
+    // MARK: - Initialization
+
     init() {
-        /*
-         Read resource file (contents taken from: https://www.currency-iso.org/en/home/tables/table-a1.html)
-         */
+        // Resource file contents taken from: https://www.currency-iso.org/en/home/tables/table-a1.html
+        //
         guard let url = Bundle.main.url(forResource: "CurrencyCodes", withExtension: "csv") else {
             fatalError("Missing Resource File: CurrencyCodes.csv")
         }
@@ -36,6 +49,26 @@ class ConverterViewModel {
             }
             return Currency(code: components[0], name: components[1])
         })
+
+        guard let inputIndex = currencies.firstIndex (where: { $0.code == "USD" }) else {
+            fatalError("Resource File Is Corrupted: Missing US Dollar (CurrencyCodes.csv)")
+        }
+        self.inputCurrencyIndex =  inputIndex
+
+        guard let convertedIndex = currencies.firstIndex (where: { $0.code == "JPY" }) else {
+            fatalError("Resource File Is Corrupted: Missing Japanese Yen (CurrencyCodes.csv)")
+        }
+        self.convertedCurrencyIndex =  convertedIndex
+    }
+
+    // MARK: -
+    
+    func isValidInputText(_ proposedText: String) -> Bool {
+        let dotCount = proposedText.filter{ $0 == "." }.count
+        if dotCount > 1 {
+            return false
+        }
+        return true
     }
 
     var numberOfCurrencies: Int {
@@ -48,13 +81,5 @@ class ConverterViewModel {
 
     func row(for currency: Currency) -> Int? {
         return currencies.firstIndex { $0.code == currency.code }
-    }
-
-    var indexOfDefaultSourceCurrency: Int {
-        return currencies.firstIndex { $0.code == "USD" } ?? 0
-    }
-
-    var indexOfDefaultDestinationCurrency: Int {
-        return currencies.firstIndex { $0.code == "JPY" } ?? 1
     }
 }

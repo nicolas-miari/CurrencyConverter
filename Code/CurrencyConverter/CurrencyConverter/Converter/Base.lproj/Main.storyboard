@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3bk-Ur-aoe">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,14 +11,14 @@
             <objects>
                 <viewController id="5ca-tl-Lqf" customClass="ConverterViewController" customModule="CurrencyConverter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cK3-PA-Utb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r1D-Bb-S8N" userLabel="ResultView">
-                                <rect key="frame" x="20" y="448" width="374" height="54.5"/>
+                                <rect key="frame" x="20" y="245" width="560" height="54.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKT-p0-Zf4" customClass="InputButton" customModule="CurrencyConverter" customModuleProvider="target">
-                                        <rect key="frame" x="274" y="9.5" width="92" height="35"/>
+                                        <rect key="frame" x="460" y="9.5" width="92" height="35"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                         <state key="normal" title="JPY"/>
                                         <connections>
@@ -27,7 +26,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="TAJ-5T-Tab">
-                                        <rect key="frame" x="8" y="8" width="258" height="38.5"/>
+                                        <rect key="frame" x="8" y="8" width="444" height="38.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="32"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -49,23 +48,23 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lly-y8-hr2">
-                                <rect key="frame" x="315" y="362" width="50" height="50"/>
+                                <rect key="frame" x="476" y="109" width="100" height="100"/>
                                 <state key="normal" image="btn_reverse"/>
                                 <connections>
                                     <action selector="swapCurrencies:" destination="5ca-tl-Lqf" eventType="touchUpInside" id="JGu-fC-nzR"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ilk-yk-pYt" userLabel="InputView">
-                                <rect key="frame" x="20" y="269" width="374" height="54.5"/>
+                                <rect key="frame" x="20" y="16" width="560" height="54.5"/>
                                 <subviews>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="2Gs-Qs-gNd" customClass="NumericInputLabel" customModule="CurrencyConverter" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="8" width="258" height="38.5"/>
+                                        <rect key="frame" x="8" y="8" width="444" height="38.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="32"/>
-                                        <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OKE-Dh-0b7" customClass="InputButton" customModule="CurrencyConverter" customModuleProvider="target">
-                                        <rect key="frame" x="274" y="9.5" width="92" height="35"/>
+                                        <rect key="frame" x="460" y="9.5" width="92" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="92" id="31a-Ha-H99"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="92" id="Lef-Zp-KYh"/>
@@ -93,15 +92,15 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Input amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCW-pG-6ql">
-                                <rect key="frame" x="20" y="243" width="91" height="18"/>
+                                <rect key="frame" x="20" y="-10.5" width="91" height="18.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Converted amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X6r-hj-nGf">
-                                <rect key="frame" x="20" y="422" width="128" height="18"/>
+                                <rect key="frame" x="20" y="219" width="128" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -115,7 +114,7 @@
                             <constraint firstAttribute="leadingMargin" secondItem="r1D-Bb-S8N" secondAttribute="leading" id="QKA-hd-0cg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ilk-yk-pYt" secondAttribute="trailing" id="Sy0-Sx-a4x"/>
                             <constraint firstAttribute="trailingMargin" secondItem="r1D-Bb-S8N" secondAttribute="trailing" id="YUV-U9-EJG"/>
-                            <constraint firstItem="r1D-Bb-S8N" firstAttribute="centerY" secondItem="8FU-56-cAb" secondAttribute="centerY" id="ekx-pE-aVC"/>
+                            <constraint firstItem="r1D-Bb-S8N" firstAttribute="centerY" secondItem="8FU-56-cAb" secondAttribute="centerY" constant="-50" id="ekx-pE-aVC"/>
                             <constraint firstItem="nKT-p0-Zf4" firstAttribute="width" secondItem="OKE-Dh-0b7" secondAttribute="width" id="jK8-4G-YAh"/>
                             <constraint firstItem="r1D-Bb-S8N" firstAttribute="top" secondItem="X6r-hj-nGf" secondAttribute="bottom" constant="8" id="pQM-D9-SaY"/>
                             <constraint firstItem="lly-y8-hr2" firstAttribute="centerX" secondItem="OKE-Dh-0b7" secondAttribute="centerX" id="uU5-pH-yLf"/>
@@ -125,10 +124,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Currency Converter" id="eCV-Xj-B4z"/>
                     <connections>
-                        <outlet property="destinationAmountLabel" destination="TAJ-5T-Tab" id="mBj-7O-cGL"/>
-                        <outlet property="destinationCurrencyButton" destination="nKT-p0-Zf4" id="tvV-9T-UPy"/>
-                        <outlet property="sourceAmountLabel" destination="2Gs-Qs-gNd" id="bIx-Fs-NgR"/>
-                        <outlet property="sourceCurrencyButton" destination="OKE-Dh-0b7" id="1nY-jf-gCx"/>
+                        <outlet property="convertedAmountLabel" destination="TAJ-5T-Tab" id="mBj-7O-cGL"/>
+                        <outlet property="convertedCurrencyButton" destination="nKT-p0-Zf4" id="tvV-9T-UPy"/>
+                        <outlet property="inputAmountLabel" destination="2Gs-Qs-gNd" id="bIx-Fs-NgR"/>
+                        <outlet property="inputCurrencyButton" destination="OKE-Dh-0b7" id="1nY-jf-gCx"/>
                         <outlet property="swapCurrenciesButton" destination="lly-y8-hr2" id="ORN-Z5-DYD"/>
                     </connections>
                 </viewController>
