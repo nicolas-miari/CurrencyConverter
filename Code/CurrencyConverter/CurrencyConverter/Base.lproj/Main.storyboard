@@ -1,24 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3bk-Ur-aoe">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Converter-->
+        <scene sceneID="SLs-YF-Spv">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController id="5ca-tl-Lqf" customClass="ConverterViewController" customModule="CurrencyConverter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cK3-PA-Utb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OKE-Dh-0b7" customClass="InputButton" customModule="CurrencyConverter" customModuleProvider="target">
+                                <rect key="frame" x="302" y="322" width="92" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="92" id="kb3-oH-ZAb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="JPY"/>
+                                <connections>
+                                    <action selector="selectSourceCurrency:" destination="5ca-tl-Lqf" eventType="touchUpInside" id="Dpw-hi-zlQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKT-p0-Zf4" customClass="InputButton" customModule="CurrencyConverter" customModuleProvider="target">
+                                <rect key="frame" x="302" y="462" width="92" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="92" id="hsI-pB-r2K"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="JPY"/>
+                                <connections>
+                                    <action selector="selectDestinationCurrency:" destination="5ca-tl-Lqf" eventType="touchUpInside" id="a4d-Tf-ZO3"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TAJ-5T-Tab">
+                                <rect key="frame" x="20" y="459.5" width="274" height="31.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="26"/>
+                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lly-y8-hr2">
+                                <rect key="frame" x="186" y="393.5" width="42" height="30"/>
+                                <state key="normal" title="SWAP"/>
+                                <connections>
+                                    <action selector="swapCurrencies:" destination="5ca-tl-Lqf" eventType="touchUpInside" id="JGu-fC-nzR"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Gs-Qs-gNd" customClass="NumericInputLabel" customModule="CurrencyConverter" customModuleProvider="target">
+                                <rect key="frame" x="20" y="319.5" width="274" height="31.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="TAJ-5T-Tab" firstAttribute="centerY" secondItem="8FU-56-cAb" secondAttribute="centerY" id="5al-aY-Zg0"/>
+                            <constraint firstItem="nKT-p0-Zf4" firstAttribute="leading" secondItem="TAJ-5T-Tab" secondAttribute="trailing" constant="8" id="BaI-db-sBr"/>
+                            <constraint firstItem="2Gs-Qs-gNd" firstAttribute="firstBaseline" secondItem="OKE-Dh-0b7" secondAttribute="firstBaseline" id="EON-SI-h55"/>
+                            <constraint firstItem="TAJ-5T-Tab" firstAttribute="top" secondItem="lly-y8-hr2" secondAttribute="bottom" constant="36" id="Gsi-qB-bl4"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="TAJ-5T-Tab" secondAttribute="leading" id="IdC-HG-Mcs"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="2Gs-Qs-gNd" secondAttribute="leading" id="Kya-eX-Ziw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="OKE-Dh-0b7" secondAttribute="trailing" id="MOo-BF-NXL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nKT-p0-Zf4" secondAttribute="trailing" id="QTs-DZ-Dfl"/>
+                            <constraint firstItem="nKT-p0-Zf4" firstAttribute="firstBaseline" secondItem="TAJ-5T-Tab" secondAttribute="firstBaseline" id="SBf-SP-GuO"/>
+                            <constraint firstItem="OKE-Dh-0b7" firstAttribute="leading" secondItem="2Gs-Qs-gNd" secondAttribute="trailing" constant="8" id="VGu-Ww-Exb"/>
+                            <constraint firstItem="lly-y8-hr2" firstAttribute="centerX" secondItem="8FU-56-cAb" secondAttribute="centerX" id="VaT-yk-RFf"/>
+                            <constraint firstItem="lly-y8-hr2" firstAttribute="top" secondItem="2Gs-Qs-gNd" secondAttribute="bottom" constant="42.5" id="g6s-VQ-1TU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8FU-56-cAb"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Converter" id="eCV-Xj-B4z"/>
+                    <connections>
+                        <outlet property="destinationAmountLabel" destination="TAJ-5T-Tab" id="mBj-7O-cGL"/>
+                        <outlet property="destinationCurrencyButton" destination="nKT-p0-Zf4" id="tvV-9T-UPy"/>
+                        <outlet property="sourceAmountLabel" destination="2Gs-Qs-gNd" id="bIx-Fs-NgR"/>
+                        <outlet property="sourceCurrencyButton" destination="OKE-Dh-0b7" id="1nY-jf-gCx"/>
+                        <outlet property="swapCurrenciesButton" destination="lly-y8-hr2" id="ORN-Z5-DYD"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dJL-0B-vXr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1892.753623188406" y="138.61607142857142"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="NiD-OF-qMv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3bk-Ur-aoe" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7Wm-vl-4xq">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="5ca-tl-Lqf" kind="relationship" relationship="rootViewController" id="0Ru-Vg-mh2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kMh-kz-FYj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="982.60869565217399" y="138.61607142857142"/>
         </scene>
     </scenes>
 </document>
