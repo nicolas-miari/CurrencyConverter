@@ -8,38 +8,8 @@
 
 import Foundation
 /**
- Documentation: https://currencylayer.com/quickstart
+ API Documentation: https://currencylayer.com/quickstart
  */
-
-/// TODO: Move to Info.plist
-//let appKey = "dd1930fac78a7adbd6aa99edfaf35a07"
-
-extension Bundle {
-    var currencyLayerAccessKey: String? {
-        return object(forInfoDictionaryKey: "Currency Layer Access Key") as? String
-    }
-}
-
-struct Quote: Codable {
-    /**
-     Concatenated in order, following the format returned by the server. So, when the rate is for
-     converting from USD to CAN, this property has the value "USDCAN".
-     */
-    let currencies: String
-
-    /**
-     The conversion rate. If currencies is `USDCAN`, then 1 USD must equal `rate` times 1 CAN.
-     */
-    let rate: Double
-
-    /**
-     The date when the quote was last retrieved from the server, for the purpose of saving
-     bandwith (quotes older than 30 minutes are discarded and re-queried). Do not confuse
-     with the timestamp that is returned from the server: That indicates how old the quotes
-     themselves are, relative to when the market valuation of each currency was last updated.
-     */
-    let timeStamp: Date
-}
 
 class ConversionService {
 
@@ -47,8 +17,13 @@ class ConversionService {
 
     private var cachedQuotes: [String: Quote] = [:]
 
-    init() {
-        self.cachedQuotes = LocalStore.shared.loadQuotes()
+    private let networkClient: NetworkClientProtocol
+
+    init(networkClient: NetworkClientProtocol = NetworkClient.shared) {
+        self.networkClient = networkClient
+        if let cached = try? LocalStore.shared.loadQuotes() {
+            self.cachedQuotes = cached
+        }
     }
 
     let dataLongevityInMinutes = 120
@@ -85,7 +60,7 @@ class ConversionService {
         let params: [String: Any] = ["access_key": accessKey, "source": srcCurrency, "format": "1"]
         // (skip 'currencies' and retrieve all each time, to save bandwidth.)
 
-        NetworkClient.shared.get(url: url, params: params, completion: { (result) in
+        networkClient.get(url: url, params: params, completion: { (result) in
             // TODO: Add support for API errors (scan for 'error' entry)
             guard let json = result as? [String: Any] else {
                 return print("Response is in the wrong format: \(result)")
@@ -121,30 +96,13 @@ class ConversionService {
                 }
                 completion(cachedResult)
             }
-
-            /*
-             Sample response:
-             {
-               "success":true,
-               "terms":"https:\/\/currencylayer.com\/terms",
-               "privacy":"https:\/\/currencylayer.com\/privacy",
-               "timestamp":1570118947,
-               "source":"USD",
-               "quotes":{
-                 "USDUSD":1,
-                 "USDAUD":1.48179,
-                 "USDCAD":1.332885,
-                 "USDPLN":3.94155,
-                 "USDMXN":19.70502
-               }
-             }
-             */
-
         }, failure: {(error) in
             print(error.localizedDescription)
         })
     }
 }
+
+// MARK: - Support
 
 enum ServiceError: LocalizedError {
     case quoteUnavailable

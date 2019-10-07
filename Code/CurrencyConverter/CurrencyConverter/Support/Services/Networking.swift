@@ -8,6 +8,11 @@
 
 import Foundation
 
+protocol NetworkClientProtocol {
+
+    func get(url: URL, params: [String: Any], completion: @escaping ((Any) -> Void), failure: @escaping ((Error) -> Void))
+}
+
 /**
  Minimal network client just for the sake of this basic example, based around the `URLSession` API.
  If and when things get more serious (e.g., reuqirement to handle all sorts of errors and more complex
@@ -16,8 +21,10 @@ import Foundation
 
  Loosely based on: https://thatthinginswift.com/write-your-own-api-clients-swift/
  and: https://stackoverflow.com/a/42697085/433373
+
+ Because it's just a thin wrapper around the URLSession API, there's no clean way to test.
  */
-class NetworkClient {
+class NetworkClient: NetworkClientProtocol {
 
     static let shared = NetworkClient()
 

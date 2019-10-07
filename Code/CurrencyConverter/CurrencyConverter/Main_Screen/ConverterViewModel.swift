@@ -29,17 +29,25 @@ class ConverterViewModel {
         return currencies[convertedCurrencyIndex]
     }
 
+    static let initialInputCurrencyCode: String = "USD"
+    static let initialConvertedCurrencyCode: String = "JPY"
+
     // MARK: - Initialization
 
-    init() {
+    init(bundle: Bundle = .main, currencyFileName: String = "CurrencyCodes") throws {
         // Resource file contents taken from: https://www.currency-iso.org/en/home/tables/table-a1.html
         //
-        guard let url = Bundle.main.url(forResource: "CurrencyCodes", withExtension: "csv") else {
-            fatalError("Missing Resource File: CurrencyCodes.csv")
+        guard let url = bundle.url(forResource: currencyFileName, withExtension: "csv") else {
+            throw ConverterViewModelError.missingResourceFile(name: currencyFileName)
         }
-        guard let csv = try? String(contentsOf: url, encoding: .utf8) else {
-            fatalError("Resource File Is Corrupted: CurrencyCodes.csv")
+
+        let csv: String
+        do {
+            csv = try String(contentsOf: url, encoding: .utf8)
+        } catch {
+            throw ConverterViewModelError.corruptedResourceFile(detail: error.localizedDescription)
         }
+
         let rows = csv.components(separatedBy: CharacterSet.newlines)
 
         self.currencies = rows.compactMap({ (row) -> Currency? in
@@ -50,13 +58,15 @@ class ConverterViewModel {
             return Currency(code: components[0], name: components[1])
         })
 
-        guard let inputIndex = currencies.firstIndex (where: { $0.code == "USD" }) else {
-            fatalError("Resource File Is Corrupted: Missing US Dollar (CurrencyCodes.csv)")
+        guard let inputIndex = currencies.firstIndex (where: { $0.code == ConverterViewModel.initialInputCurrencyCode }) else {
+            let detail = "Resource File Is Corrupted: Missing Initial Input Code '\(ConverterViewModel.initialInputCurrencyCode)'  (\(currencyFileName).csv)"
+            throw ConverterViewModelError.corruptedResourceFile(detail: detail)
         }
         self.inputCurrencyIndex =  inputIndex
 
-        guard let convertedIndex = currencies.firstIndex (where: { $0.code == "JPY" }) else {
-            fatalError("Resource File Is Corrupted: Missing Japanese Yen (CurrencyCodes.csv)")
+        guard let convertedIndex = currencies.firstIndex (where: { $0.code == ConverterViewModel.initialConvertedCurrencyCode }) else {
+            let detail = "Resource File Is Corrupted: Missing Initial Target Code '\(ConverterViewModel.initialConvertedCurrencyCode)'  (\(currencyFileName).csv)"
+            throw ConverterViewModelError.corruptedResourceFile(detail: detail)
         }
         self.convertedCurrencyIndex =  convertedIndex
     }
@@ -66,6 +76,9 @@ class ConverterViewModel {
     func isValidInputText(_ proposedText: String) -> Bool {
         let dotCount = proposedText.filter{ $0 == "." }.count
         if dotCount > 1 {
+            return false
+        }
+        guard Double(proposedText) != nil else {
             return false
         }
         return true
@@ -81,5 +94,20 @@ class ConverterViewModel {
 
     func row(for currency: Currency) -> Int? {
         return currencies.firstIndex { $0.code == currency.code }
+    }
+}
+
+enum ConverterViewModelError: LocalizedError {
+    case missingResourceFile(name: String)
+    case corruptedResourceFile(detail: String)
+
+    var localizedDescription: String {
+        switch self {
+        case .missingResourceFile(let name):
+            return "Missing resource file: \(name)"
+
+        case .corruptedResourceFile(let detail):
+            return "Corrupted resource file: \(detail)"
+        }
     }
 }

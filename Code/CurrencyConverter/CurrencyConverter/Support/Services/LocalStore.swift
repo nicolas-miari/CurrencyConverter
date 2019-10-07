@@ -17,18 +17,35 @@ class LocalStore {
 
     static let shared = LocalStore()
 
+    let quotesKey: String = "CachedQuotes"
+
     func storeQuotes(_ quotes: [String: Quote]) {
         let data = try? JSONEncoder().encode(quotes)
-        UserDefaults.standard.set(data, forKey: "CachedQuotes")
+        UserDefaults.standard.set(data, forKey: quotesKey)
     }
 
-    func loadQuotes() -> [String: Quote] {
-        guard let data = UserDefaults.standard.data(forKey: "CachedQuotes") else {
+    func loadQuotes() throws -> [String: Quote] {
+        guard let data = UserDefaults.standard.data(forKey: quotesKey) else {
             return [:]
         }
         guard let dictionary = try? JSONDecoder().decode([String: Quote].self, from: data) else {
-            return [:]
+            throw LocalStoreError.dataCorrupted
         }
         return dictionary
+    }
+
+    func clearQuotes() {
+        UserDefaults.standard.removeObject(forKey: quotesKey)
+    }
+}
+
+enum LocalStoreError: LocalizedError {
+    case dataCorrupted
+
+    var localizedDescription: String {
+        switch self {
+        case .dataCorrupted:
+            return "Data is corrupted"
+        }
     }
 }

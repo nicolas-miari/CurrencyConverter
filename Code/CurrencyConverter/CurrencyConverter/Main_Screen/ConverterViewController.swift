@@ -26,7 +26,12 @@ class ConverterViewController: UIViewController {
 
     // MARK: -
 
-    let viewModel = ConverterViewModel()
+    lazy var viewModel: ConverterViewModel = {
+        guard let viewModel = try? ConverterViewModel() else {
+            fatalError("!!!")
+        }
+        return viewModel
+    }()
 
     // MARK: - UIViewController
 
@@ -55,12 +60,13 @@ class ConverterViewController: UIViewController {
         view.backgroundColor = .systemGray4
 
         let button = UIButton(type: .system)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Convert", for: .normal)
         button.addTarget(self, action: #selector(convert(_:)), for: .touchUpInside)
         view.addSubview(button)
         button.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        button.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
+        button.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
 
         return view
     }
@@ -78,20 +84,22 @@ class ConverterViewController: UIViewController {
         view.backgroundColor = .systemGray5
 
         let cancelButton = UIButton(type: .system)
+        cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.setTitle("Cancel", for: .normal)
         cancelButton.addTarget(self, action: #selector(cancel(_:)), for: .touchUpInside)
         view.addSubview(cancelButton)
         cancelButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        cancelButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
+        cancelButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
 
         let doneButton = UIButton(type: .system)
+        doneButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         doneButton.setTitle("Done", for: .normal)
         doneButton.addTarget(self, action: #selector(done), for: .touchUpInside)
         view.addSubview(doneButton)
         doneButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        doneButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
+        doneButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
 
         return view
     }
@@ -107,6 +115,12 @@ class ConverterViewController: UIViewController {
         guard let amount = Double(inputAmountLabel.text ?? "") else {
             fatalError("Invalid Input")
         }
+        guard amount > 0.0 else {
+            // Skip conversion/API call:
+            self.convertedAmountLabel.text = "0"
+            return
+        }
+
         ConversionService.shared.convert(
             amount: amount,
             from: viewModel.inputCurrency.code,
