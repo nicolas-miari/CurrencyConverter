@@ -23,7 +23,6 @@
 		1F5F159A23475D8700F3C7CE /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F159923475D8700F3C7CE /* Date+Extensions.swift */; };
 		1F5F159C23475DA700F3C7CE /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F159B23475DA700F3C7CE /* TimeInterval+Extensions.swift */; };
 		1F5F159E23475DDD00F3C7CE /* LocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F159D23475DDD00F3C7CE /* LocalStore.swift */; };
-		1F5F15A02347640400F3C7CE /* SupportedCodes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F5F159F2347640400F3C7CE /* SupportedCodes.txt */; };
 		1F5F15B7234769CD00F3C7CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F0C704423470C0A0090519B /* Main.storyboard */; };
 		1F5F15B9234769D900F3C7CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F0C704923470C0B0090519B /* LaunchScreen.storyboard */; };
 		1F886000234AC7940014B861 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F885FFF234AC7940014B861 /* Bundle+Extensions.swift */; };
@@ -81,7 +80,6 @@
 		1F5F159923475D8700F3C7CE /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		1F5F159B23475DA700F3C7CE /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 		1F5F159D23475DDD00F3C7CE /* LocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStore.swift; sourceTree = "<group>"; };
-		1F5F159F2347640400F3C7CE /* SupportedCodes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SupportedCodes.txt; sourceTree = "<group>"; };
 		1F5F15B8234769D300F3C7CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F885FFF234AC7940014B861 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		1F886001234AC7B50014B861 /* Quote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
@@ -152,7 +150,6 @@
 				1F0C704923470C0B0090519B /* LaunchScreen.storyboard */,
 				1F0C704C23470C0B0090519B /* Info.plist */,
 				1F4ABBB823472D7400C24C7E /* CurrencyCodes.csv */,
-				1F5F159F2347640400F3C7CE /* SupportedCodes.txt */,
 			);
 			path = CurrencyConverter;
 			sourceTree = "<group>";
@@ -229,10 +226,10 @@
 		1F4ABBC2234744BB00C24C7E /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				1F4ABBBF2347449E00C24C7E /* Views */,
-				1F4ABBC0234744AB00C24C7E /* Extensions */,
 				1F885FFE234AC7720014B861 /* Model */,
 				1F4ABBC1234744B300C24C7E /* Services */,
+				1F4ABBBF2347449E00C24C7E /* Views */,
+				1F4ABBC0234744AB00C24C7E /* Extensions */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -349,7 +346,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F5F15A02347640400F3C7CE /* SupportedCodes.txt in Resources */,
 				1F5F15B7234769CD00F3C7CE /* Main.storyboard in Resources */,
 				1F4ABBB923472D7400C24C7E /* CurrencyCodes.csv in Resources */,
 				1F5F15B9234769D900F3C7CE /* LaunchScreen.storyboard in Resources */,
@@ -582,7 +578,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nicolasmiari.CurrencyConverter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -602,7 +598,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nicolasmiari.CurrencyConverter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
