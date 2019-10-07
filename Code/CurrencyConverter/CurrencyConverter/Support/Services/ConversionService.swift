@@ -63,10 +63,10 @@ class ConversionService {
         networkClient.get(url: url, params: params, completion: { (result) in
             // TODO: Add support for API errors (scan for 'error' entry)
             guard let json = result as? [String: Any] else {
-                return print("Response is in the wrong format: \(result)")
+                return failure(ServiceError.wrongResponseFormat)
             }
             guard let quotesJSON = json["quotes"] as? [String: Any] else {
-                return print("Response is in the wrong format! (missing all quotes): \(json)")
+                return failure(ServiceError.responseCorrupted)
             }
             /*
              Ignore server timestamp: it only specifies how old the data ON THE SERVER is.
@@ -109,6 +109,10 @@ enum ServiceError: LocalizedError {
 
     case accessKeyMissing
 
+    case wrongResponseFormat
+
+    case responseCorrupted
+
     var localizedDescription: String {
         switch self {
         case .quoteUnavailable:
@@ -116,6 +120,12 @@ enum ServiceError: LocalizedError {
 
         case .accessKeyMissing:
             return "Access Key is missing from Info.plist file."
+
+        case .wrongResponseFormat:
+            return "Service response is in the wrong format."
+
+        case .responseCorrupted:
+            return "Service response is corrupted."
         }
     }
 }

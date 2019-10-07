@@ -58,7 +58,7 @@ class ConverterViewModelTests: XCTestCase {
             XCTFail("Unexpected Success")
         } catch let error as ConverterViewModelError {
             switch error {
-            case .corruptedResourceFile(let name):
+            case .corruptedResourceFile(_):
                 _ = error.localizedDescription // (for code coverage)
 
             default:
