@@ -115,9 +115,10 @@ class ConverterViewController: UIViewController {
         guard let amount = Double(inputAmountLabel.text ?? "") else {
             fatalError("Invalid Input")
         }
-        guard amount > 0.0 else {
-            // Skip conversion/API call:
-            self.convertedAmountLabel.text = "0"
+
+        // Skip trivial conversions (0 input, or same currency):
+        guard amount > 0.0, viewModel.inputCurrency.code != viewModel.convertedCurrency.code else {
+            self.convertedAmountLabel.text = inputAmountLabel.text
             return
         }
 
